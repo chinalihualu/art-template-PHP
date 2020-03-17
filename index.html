@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            #content td{
+                padding: 20px;
+            }
+        </style>
+        <script src="jquery-3.4.1.min.js"></script>
+        <script src="template-web.js"></script>
+
+        
+        <script id="demo1" type="text/html">
+            <table style="text-align: center;" cellspacing="0" border="1px solid blue">
+                {{each books as value}}
+                    <tr>
+                        <td><a href="goodDetail.html?booksId={{value.id}}" target="_blank">{{@value.id}}</a></td>
+                        <td>{{value.imgUrl}}</td>
+                        <td>{{value.price}}</td>
+                        <td>{{value.title}}</td>
+                        <td>{{value.publish}}</td>
+                        <td>{{value.num}}</td>
+                        <td>{{value.desc}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+                {{nums}}
+
+        </script>
+        <script id="demo2" type="text/html">
+            <table style="text-align: center;" cellspacing="0" border="1px solid blue">
+                {{each lists as value}}
+                    <tr>
+                        <td><a href="goodDetail.html?booksId={{value.id}}" target="_blank">{{@value.id}}</a></td>
+                        <td>{{value.imgUrl}}</td>
+                        <td>{{value.price}}</td>
+                        <td>{{value.title}}</td>
+                        <td>{{value.publish}}</td>
+                        <td>{{value.num}}</td>
+                        <td>{{value.desc}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+                {{nums}}
+
+        </script>
+        <script>
+            $(function () {
+               $.ajax({
+                   type:"get",
+                   url:"data.json?booksId=1",
+                   dataType:"json",
+                   success:function (res) {
+                       var html1 = template('demo1', res.no1);
+                       var html2 = template('demo2', res.no2);
+                       document.getElementById("content1").innerHTML = html1;
+                       document.getElementById("content2").innerHTML = html2;
+                   }
+               }
+               );
+            });
+        </script>
+    </head>
+    <body>
+        <div id="content1"></div>
+        <div style="width: 100%;height: 300px;background-color: green;padding-bottom: 20px;">
+        <div id="content2"></div>
+        </div>
+    </body>
+</html>
